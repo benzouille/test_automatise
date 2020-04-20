@@ -4,7 +4,6 @@
     "linux"
   ],
   "dist": "xenial",
-  "sudo": false,
   "script": [
     "cd src/ - mvn clean test"
   ]

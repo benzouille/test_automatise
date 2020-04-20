@@ -1,7 +1,11 @@
-language: java
-sudo: false
-
-script:
-  # the following command line builds the project,
-  cd src/
-  - mvn clean test
+{
+  "language": "java",
+  "os": [
+    "linux"
+  ],
+  "dist": "xenial",
+  "sudo": false,
+  "script": [
+    "cd src/ - mvn clean test"
+  ]
+}

@@ -3,4 +3,5 @@ sudo: false
 
 script:
   # the following command line builds the project,
+  cd src/
   - mvn clean test

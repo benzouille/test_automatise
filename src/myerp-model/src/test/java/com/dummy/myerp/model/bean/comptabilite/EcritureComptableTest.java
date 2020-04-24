@@ -5,22 +5,15 @@ import java.math.BigDecimal;
 import org.apache.commons.lang3.ObjectUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.provider.ValueSource;
-import org.mockito.Mock;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+
 
 
 public class EcritureComptableTest {
 
     private EcritureComptable ecritureComptableTest;
-
-    @Mock
-    private LigneEcritureComptable ligneEcritureComptable;
 
     @BeforeEach
     public void init(){
@@ -35,7 +28,6 @@ public class EcritureComptableTest {
     @Test
     public void getTotalDebit_should_return_BigDecimal_ZERO(){
         //GIVEN
-        //when(ligneEcritureComptable.getDebit()).thenReturn(null);
         final int compteComptable = 1;
         final String debit = null;
         final String credit = null;
@@ -49,7 +41,6 @@ public class EcritureComptableTest {
         BigDecimal retour = ecritureComptableTest.getTotalDebit();
 
         //THEN
-        //verify(ligneEcritureComptable.getDebit());
         assertThat(retour).isEqualByComparingTo(BigDecimal.ZERO);
     }
 
@@ -117,40 +108,34 @@ public class EcritureComptableTest {
     }
 
     @Test
-    @Disabled
     public void isEquilibree_should_return_true() {
         //GIVEN
-
-        //WHEN
-
-        //THEN
-
         ecritureComptableTest.setLibelle("Equilibrée");
         ecritureComptableTest.getListLigneEcriture().add(this.createLigne(1, "200.50", null));
-        ecritureComptableTest.getListLigneEcriture().add(this.createLigne(1, "100.50", "33"));
-        ecritureComptableTest.getListLigneEcriture().add(this.createLigne(2, null, "301"));
-        ecritureComptableTest.getListLigneEcriture().add(this.createLigne(2, "40", "7"));
-        //Assert.assertTrue(ecritureComptableTest.toString(), ecritureComptableTest.isEquilibree());
-        //Assert<ecritureComptableTest.toString(), ecritureComptableTest.isEquilibree()>;
+        ecritureComptableTest.getListLigneEcriture().add(this.createLigne(1, "100.50", "33.00"));
+        ecritureComptableTest.getListLigneEcriture().add(this.createLigne(2, null, "301.00"));
+        ecritureComptableTest.getListLigneEcriture().add(this.createLigne(2, "40", "7.00"));
+        //WHEN
+        boolean equilibre = ecritureComptableTest.isEquilibree();
 
-
+        //THEN
+        assertThat(equilibre).isTrue();
     }
 
     @Test
-    @Disabled
     public void isEquilibree_should_return_false(){
         //GIVEN
-
-        //WHEN
-
-        //THEN
-
         ecritureComptableTest.setLibelle("Non équilibrée");
         ecritureComptableTest.getListLigneEcriture().add(this.createLigne(1, "10", null));
         ecritureComptableTest.getListLigneEcriture().add(this.createLigne(1, "20", "1"));
         ecritureComptableTest.getListLigneEcriture().add(this.createLigne(2, null, "30"));
         ecritureComptableTest.getListLigneEcriture().add(this.createLigne(2, "1", "2"));
-        //Assert.assertFalse(ecritureComptableTest.toString(), ecritureComptableTest.isEquilibree());
+
+        //WHEN
+        boolean equilibre = ecritureComptableTest.isEquilibree();
+
+        //THEN
+        assertThat(equilibre).isFalse();
     }
 
     //TODO que faire de cette methode ?

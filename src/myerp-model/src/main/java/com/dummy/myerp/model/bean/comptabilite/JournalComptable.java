@@ -88,4 +88,8 @@ public class JournalComptable {
         }
         return vRetour;
     }
+
+    public JournalComptable getByCode_forTest(List<? extends JournalComptable> pList, String pCode) {
+        return JournalComptable.getByCode(pList, pCode);
+    }
 }

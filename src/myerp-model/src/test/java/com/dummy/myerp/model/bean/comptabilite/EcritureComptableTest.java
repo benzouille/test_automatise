@@ -138,7 +138,21 @@ public class EcritureComptableTest {
         assertThat(equilibre).isFalse();
     }
 
-    //TODO que faire de cette methode ?
+    @Test
+    public void to_string_should_return_detail(){
+        //GIVEN
+        final String expected = "EcritureComptable{id=null, journal=null, reference='null', date=null, libelle='null', totalDebit=0, totalCredit=0, listLigneEcriture=[\n" +
+                "\n" +
+                "]}";
+        ecritureComptableTest = new EcritureComptable();
+
+        //WHEN
+        String result = ecritureComptableTest.toString();
+
+        //THEN
+        assertThat(result).isEqualTo(expected);
+    }
+
     private LigneEcritureComptable createLigne(Integer pCompteComptableNumero, String pDebit, String pCredit) {
         BigDecimal vDebit = pDebit == null ? null : new BigDecimal(pDebit);
         BigDecimal vCredit = pCredit == null ? null : new BigDecimal(pCredit);

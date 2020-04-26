@@ -96,4 +96,8 @@ public class CompteComptable {
         }
         return vRetour;
     }
+
+    public CompteComptable getByNum_forTest(List<? extends CompteComptable> pList, Integer pNumero){
+        return CompteComptable.getByNumero(pList, pNumero);
+    }
 }

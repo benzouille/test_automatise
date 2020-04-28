@@ -3,8 +3,25 @@
   "os": [
     "linux"
   ],
-  "dist": "xenial",
+  "dist": "trusty",
+  "jdk": [
+    "oraclejdk8"
+  ],
+  "sudo": true,
+  "services": [
+    "docker"
+  ],
+  "before_install": [
+    "cd docker/dev",
+    "docker-compose up -d",
+    "docker ps -a"
+  ],
+  "before_script": [
+    "cd ../../src/"
+  ],
   "script": [
-    "cd src/ - mvn clean test"
+    "mvn test",
+    "mvn test -Ptest-consumer",
+    "mvn test -Ptest-business"
   ]
 }

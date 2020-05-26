@@ -29,6 +29,18 @@ public abstract class AbstractBusinessManager {
      *
      * @param pBusinessProxy      -
      * @param pDaoProxy           -
+     */
+    public static void configure(BusinessProxy pBusinessProxy,
+                                 DaoProxy pDaoProxy) {
+        businessProxy = pBusinessProxy;
+        daoProxy = pDaoProxy;
+    }
+
+    /**
+     * Méthode de configuration de la classe
+     *
+     * @param pBusinessProxy      -
+     * @param pDaoProxy           -
      * @param pTransactionManager -
      */
     public static void configure(BusinessProxy pBusinessProxy,

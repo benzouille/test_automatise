@@ -7,6 +7,10 @@ package com.dummy.myerp.model.bean.comptabilite;
 public class SequenceEcritureComptable {
 
     // ==================== Attributs ====================
+
+    //CORRECTION ajout de la clé primaire journal_code dans l'objet
+    /** Journal_code */
+    private String journal_code;
     /** L'année */
     private Integer annee;
     /** La dernière valeur utilisée */
@@ -32,6 +36,13 @@ public class SequenceEcritureComptable {
 
 
     // ==================== Getters/Setters ====================
+
+    public String getJournal_code() {
+        return journal_code;
+    }
+    public void setJournal_code(String journal_code) {
+        this.journal_code = journal_code;
+    }
     public Integer getAnnee() {
         return annee;
     }
@@ -46,15 +57,12 @@ public class SequenceEcritureComptable {
     }
 
 
-    // ==================== Méthodes ====================
     @Override
     public String toString() {
-        final StringBuilder vStB = new StringBuilder(this.getClass().getSimpleName());
-        final String vSEP = ", ";
-        vStB.append("{")
-            .append("annee=").append(annee)
-            .append(vSEP).append("derniereValeur=").append(derniereValeur)
-            .append("}");
-        return vStB.toString();
+        return "SequenceEcritureComptable{" +
+                "journal_code='" + journal_code + '\'' +
+                ", annee=" + annee +
+                ", derniereValeur=" + derniereValeur +
+                '}';
     }
 }

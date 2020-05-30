@@ -100,7 +100,14 @@ public class ComptabiliteDaoImpl extends AbstractDbConsumer implements Comptabil
         } catch (EmptyResultDataAccessException vEx) {
             throw new NotFoundException("EcritureComptable non trouvée : journal_code=" + journal_code + " année : " + year);
         }
-        return vList.get(0);
+
+        if (vList.size() != 0){
+            return vList.get(0);
+        }
+        else{
+            return null;
+        }
+
     }
 
     /** SQLinsertSequenceEcritureComptable */

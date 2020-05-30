@@ -23,8 +23,7 @@ import java.util.Date;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
@@ -180,6 +179,39 @@ public class ComptabiliteManagerImplTest {
         assertThrows(FunctionalException.class, () ->
                 comptabiliteManager.checkEcritureComptableUnit(
                         testExectutable.getEcritureComptable()));
+    }
+
+    @Test
+    public void verifySequence_should_return_SequenceEcritureComptable_with_DerniereValeur(){
+        SequenceEcritureComptable sequenceEcritureComptable = null;
+        SequenceEcritureComptable newSequenceEcritureComptable;
+
+        newSequenceEcritureComptable = comptabiliteManager.verifySequence(sequenceEcritureComptable, 2020);
+
+        assertThat(newSequenceEcritureComptable.getDerniereValeur()).isEqualTo(1);
+    }
+
+    @Test
+    public void addRefToEcriture(){
+        //GIVEN
+        EcritureComptable vEcritureComptable;
+        vEcritureComptable = new EcritureComptable();
+        vEcritureComptable.setJournal(new JournalComptable("AC", "Achat"));
+        vEcritureComptable.setDate(new Date());
+        vEcritureComptable.setLibelle("Libelle");
+        vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(512),
+                null, new BigDecimal(123),
+                null));
+        vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(401),
+                null, null,
+                new BigDecimal(123)));
+
+        SequenceEcritureComptable sequence = new SequenceEcritureComptable(2020, 7);
+
+        //WHEN
+        vEcritureComptable = comptabiliteManager.addRefToEcriture(vEcritureComptable, sequence);
+
+        System.out.println(vEcritureComptable);
     }
 
     /**

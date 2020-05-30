@@ -42,7 +42,6 @@
             <value>
                 INSERT INTO myerp.sequence_ecriture_comptable (journal_code, annee, derniere_valeur)
                 VALUES ( :journal_code, :annee, :derniere_valeur)
-                )
             </value>
         </property>
         <property name="SQLupdateSequenceEcritureComptable">

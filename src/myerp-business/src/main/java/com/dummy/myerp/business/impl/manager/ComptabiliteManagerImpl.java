@@ -113,23 +113,26 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
             e.printStackTrace();
         }
 
-        SequenceEcritureComptable newSequence = new SequenceEcritureComptable();
-        newSequence.setAnnee(vAnnee);
+//        SequenceEcritureComptable newSequence = new SequenceEcritureComptable();
+//        newSequence.setAnnee(vAnnee);
+//
+//        if (sequence == null) {
+//            newSequence.setDerniereValeur(1);
+//        } else {
+//            newSequence.setDerniereValeur(sequence.getDerniereValeur().intValue() + 1);
+//        }
+//
+//        String numeroSequence = "";
+//        if (newSequence.getDerniereValeur() < 10000) { numeroSequence += "0"; }
+//        if (newSequence.getDerniereValeur() < 1000) { numeroSequence += "0"; }
+//        if (newSequence.getDerniereValeur() < 100) { numeroSequence += "0"; }
+//        if (newSequence.getDerniereValeur() < 10) { numeroSequence += "0"; }
+//        numeroSequence += newSequence.getDerniereValeur();
+//
+//        pEcritureComptable.setReference(pEcritureComptable.getJournal().getCode() + "-" + newSequence.getAnnee() + "/" + numeroSequence);
 
-        if (sequence == null) {
-            newSequence.setDerniereValeur(1);
-        } else {
-            newSequence.setDerniereValeur(sequence.getDerniereValeur().intValue() + 1);
-        }
-
-        String numeroSequence = "";
-        if (newSequence.getDerniereValeur() < 10000) { numeroSequence += "0"; }
-        if (newSequence.getDerniereValeur() < 1000) { numeroSequence += "0"; }
-        if (newSequence.getDerniereValeur() < 100) { numeroSequence += "0"; }
-        if (newSequence.getDerniereValeur() < 10) { numeroSequence += "0"; }
-        numeroSequence += newSequence.getDerniereValeur();
-
-        pEcritureComptable.setReference(pEcritureComptable.getJournal().getCode() + "-" + newSequence.getAnnee() + "/" + numeroSequence);
+        SequenceEcritureComptable newSequence = verifySequence(sequence, vAnnee);
+        pEcritureComptable = addRefToEcriture(pEcritureComptable, newSequence);
 
         TransactionStatus vTS = getTransactionManager().beginTransactionMyERP();
         if (newSequence.getDerniereValeur() == 1) {
@@ -318,6 +321,34 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
                 // Dans ce cas, c'est bon, ça veut dire qu'on n'a aucune autre écriture avec la même référence.
             }
         }
+    }
+
+
+    public SequenceEcritureComptable verifySequence(SequenceEcritureComptable sequence, int vAnnee){
+        SequenceEcritureComptable newSequence = new SequenceEcritureComptable();
+        newSequence.setAnnee(vAnnee);
+
+        if (sequence == null) {
+            newSequence.setDerniereValeur(1);
+        } else {
+            newSequence.setDerniereValeur(sequence.getDerniereValeur() + 1);
+        }
+        return newSequence;
+    }
+
+    public EcritureComptable addRefToEcriture(EcritureComptable pEcritureComptable, SequenceEcritureComptable newSequence){
+
+
+        String numeroSequence = "";
+        if (newSequence.getDerniereValeur() < 10000) { numeroSequence += "0"; }
+        if (newSequence.getDerniereValeur() < 1000) { numeroSequence += "0"; }
+        if (newSequence.getDerniereValeur() < 100) { numeroSequence += "0"; }
+        if (newSequence.getDerniereValeur() < 10) { numeroSequence += "0"; }
+        numeroSequence += newSequence.getDerniereValeur();
+
+        pEcritureComptable.setReference(pEcritureComptable.getJournal().getCode() + "-" + newSequence.getAnnee() + "/" + numeroSequence);
+
+        return pEcritureComptable;
     }
 
     /**
